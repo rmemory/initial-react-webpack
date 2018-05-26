@@ -4,7 +4,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	// Primary entry point
+	// Primary entry point for react application
 	entry: './src/index.js',
 
 	// Output of build from webpack
@@ -12,30 +12,38 @@ module.exports = {
 		// Put output into the dist folder
 		path: path.join(__dirname, '/dist'),
 
-		// in a file name index_bundle.js
+		// output will be in a file name index_bundle.js
 		filename: 'index_bundle.js'
 	},
 
-	// Rules of what to build
+	// Rules for loader. 
 	module: {
 		rules: [
 			{
 				// Do build the .jsx files
-				test: /\.js$/,
+				test: /\.js|.jsx?$/,
+
 				// Don't build the node_modules directory
 				exclude: /node_modules/,
 
 				// Use the babel-loader
 				use: {
-					loader: babel-loader
+					loader: "babel-loader"
 				}
 			}
 		]
 	},
+	resolve: {
+		extensions: ['.js', '.jsx'],
+	},
+
+	// This creates the index.html, using the ./src/index.html as a 
+	// starting template
 	plugins: [
 		new HtmlWebPackPlugin({
+			// With no arg, it would attempt to create its own HTML file, 
+			// but we specify a template instead
 			template: './src/index.html'
-		}
-		)
+		})
 	]
 }
