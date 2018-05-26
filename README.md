@@ -45,6 +45,8 @@ the babel-loader is tied directly to babel-react (and not useful elsewhere), but
 
 I get that --save-dev adds stuff to the "devDependencies" block in package.json, but I am still not entirely sure what that means, or even if in my case that implies I don't yet have a functional "production" build.
 
+I've seen some examples where people use webpack.config.dev.js and webpack.config.js in the same project. 
+
 7) I frequently get lost in the overloaded terms of bundle, module, component, plugin,
 preset. One example: The HTML Webpack Plugin simplies the creation of HTML files to 
 serve your bundles. What in the crap does "serve your bundles" mean in that context? I mean,
@@ -75,4 +77,8 @@ vs this in .babelrc
 	"presets": ["env", "react"]
 }
 
-9) If you see anything else to point out, feel free.
+9) If you see anything else to point out, feel free. For one thing, I realize I don't yet have any css or scss in this prototype.
+
+10) The usage of the property name "test:" is still a mystery to me.
+
+Anyways ... those are just a few of my questions :-D
