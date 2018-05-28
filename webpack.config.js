@@ -33,10 +33,6 @@ module.exports = {
 			}
 		]
 	},
-	resolve: {
-		extensions: ['.js', '.jsx'],
-	},
-
 	// This creates the index.html, using the ./src/index.html as a 
 	// starting template
 	plugins: [

@@ -1,3 +1,5 @@
+Among other things, webpack allows us to compile Node modules into static modules which can be used in the web app you are developing.
+
 npm init
 
 npm i react react-dom
@@ -6,7 +8,14 @@ npm i --save-dev webpack webpack-dev-server webpack-cli
 
 npm i --save-dev babel-core babel-loader babel-preset-env babel-preset-react html-webpack-plugin
 
-create webpack.config.js
+Add scripts to the package.json to run web pack. For example, 
+
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode production"
+  },
+
+create webpack.config.js. This is where we define the inputs and outputs webpack uses.
 
 create .babelrc
 
@@ -51,7 +60,9 @@ I've seen some examples where people use webpack.config.dev.js and webpack.confi
 preset. One example: The HTML Webpack Plugin simplies the creation of HTML files to 
 serve your bundles. What in the crap does "serve your bundles" mean in that context? I mean,
 I generally get that HTML Webpack Plugin somehow generates an index.html for the build
-output. Nevertheless, I still don't get what "module" means in that context.
+output. 
+
+Nevertheless, I still don't get what "module" means in that context. I am seeing at the top level of the webpack.config.js, the "module.exports". I am wondering what it might mean to have multiple modules.
 
 8) Somewhat frustratingly as a newbie, I am seeing there are apparently multiple ways to accomplish the same thing when I look at different examples. Here is one example ...
 
