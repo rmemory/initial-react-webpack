@@ -5,7 +5,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	// Primary entry point for react application
-	entry: './src/index.js',
+	// babel-polyfill allows usage of promises, async/await.
+	entry: ['babel-polyfill', './src/index.js'],
 
 	// Output of build from webpack
 	output: {
@@ -13,15 +14,22 @@ module.exports = {
 		path: path.join(__dirname, '/dist'),
 
 		// output will be in a file name index_bundle.js
-		filename: 'index_bundle.js'
+		filename: 'index_bundle.js',
+
+		/*
+		   First half of allowing webpack dev server to handle react
+		   routes. See this:
+		   https://tylermcginnis.com/react-router-cannot-get-url-refresh/
+		 */
+		publicPath: '/',
 	},
 
-	// Rules for loader. 
+	// Rules for loader
 	module: {
 		rules: [
 			{
 				// Do build the .jsx files
-				test: /\.js|.jsx?$/,
+				test: /\.jsx?$/,
 
 				// Don't build the node_modules directory
 				exclude: /node_modules/,
@@ -29,37 +37,32 @@ module.exports = {
 				// Use the babel-loader
 				use: [
 					{
-						loader: "babel-loader"
-					},
-				]
-			},
-			{
-				test: /\.svg$/,
-				use: [
-					{
-						loader: "babel-loader"
-					},
-					{
-						loader: "react-svg-loader",
+						loader: 'babel-loader',
 						options: {
-							jsx: true // true outputs JSX tags
-						}
-					}
-				]
+							presets: ['react'],
+						},
+					},
+				],
 			},
 			{
 				test: /\.css$/,
-				use: [ 'style-loader', 'css-loader' ]
-			}
-		]
+				use: ['style-loader', 'css-loader'],
+			},
+		],
 	},
-	// This creates the index.html, using the ./src/index.html as a 
+
+	// Second half of allowing webpack dev server to handle react routes.
+	devServer: {
+		historyApiFallback: true,
+	},
+
+	// This creates the index.html, using the ./src/index.html as a
 	// starting template
 	plugins: [
 		new HtmlWebPackPlugin({
-			// With no arg, it would attempt to create its own HTML file, 
+			// With no arg, it would attempt to create its own HTML file,
 			// but we specify a template instead
-			template: './src/index.html'
-		})
-	]
-}
+			template: './src/index.html',
+		}),
+	],
+};
